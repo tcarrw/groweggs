@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grow a Garden - Pet Eggs Chart</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .egg-section {
+            margin-bottom: 40px;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .egg-section:hover {
+            transform: translateY(-5px);
+        }
+
+        .egg-header {
+            padding: 20px;
+            font-size: 1.4em;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .egg-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .common-header { background: linear-gradient(135deg, #95a5a6, #7f8c8d); }
+        .uncommon-header { background: linear-gradient(135deg, #2ecc71, #27ae60); }
+        .rare-header { background: linear-gradient(135deg, #3498db, #2980b9); }
+        .legendary-header { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
+        .mythical-header { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+        .bug-header { background: linear-gradient(135deg, #f39c12, #e67e22); }
+        .special-header { background: linear-gradient(135deg, #1abc9c, #16a085); }
+
+        .pets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .pet-card {
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid #e9ecef;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pet-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border-color: #667eea;
+        }
+
+        .pet-name {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .tier-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            color: white;
+        }
+
+        .tier-s { background: linear-gradient(45deg, #ff6b6b, #ee5a24); }
+        .tier-a { background: linear-gradient(45deg, #feca57, #ff9ff3); }
+        .tier-b { background: linear-gradient(45deg, #48dbfb, #0abde3); }
+        .tier-c { background: linear-gradient(45deg, #1dd1a1, #10ac84); }
+        .tier-d { background: linear-gradient(45deg, #a4b0be, #747d8c); }
+
+        .hatch-chance {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .ability {
+            color: #34495e;
+            line-height: 1.6;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            margin-top: 10px;
+            font-size: 0.95em;
+        }
+
+        .egg-info {
+            background: #e8f4fd;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid #3498db;
+        }
+
+        .egg-cost {
+            font-weight: bold;
+            color: #e67e22;
+            margin-right: 15px;
+        }
+
+        .egg-stats {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+
+        .stat {
+            background: rgba(52, 152, 219, 0.1);
+            padding: 5px 10px;
+            border-radius: 15px;
+            border: 1px solid rgba(52, 152, 219, 0.2);
+        }
+
+        .search-container {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .search-box {
+            padding: 15px 25px;
+            font-size: 1.1em;
+            border: 2px solid #667eea;
+            border-radius: 30px;
+            width: 100%;
+            max-width: 400px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-box:focus {
+            border-color: #764ba2;
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .filter-buttons {
+            margin: 20px 0;
+            text-align: center;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 25px;
+            background: #95a5a6;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .filter-btn.active { background: #667eea; }
+
+        @media (max-width: 768px) {
+            .pets-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🥚 Grow a Garden Pet Eggs Chart 🐾</h1>
+        <p class="subtitle">Complete guide to all pets, their abilities, and hatch rates</p>
+        
+        <div class="search-container">
+            <input type="text" class="search-box" placeholder="Search pets by name or ability..." id="searchInput">
+        </div>
+
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">All Eggs</button>
+            <button class="filter-btn" data-filter="common">Common</button>
+            <button class="filter-btn" data-filter="uncommon">Uncommon</button>
+            <button class="filter-btn" data-filter="rare">Rare</button>
+            <button class="filter-btn" data-filter="legendary">Legendary</button>
+            <button class="filter-btn" data-filter="mythical">Mythical</button>
+            <button class="filter-btn" data-filter="bug">Bug</button>
+            <button class="filter-btn" data-filter="special">Special</button>
+        </div>
+
+        <!-- Common Egg -->
+        <div class="egg-section" data-egg="common">
+            <div class="egg-header common-header">
+                🥚 Common Egg
+            </div>
+            <div class="egg-info">
+                <span class="egg-cost">💰 Cost: 25,000 Sheckles</span>
+                <div class="egg-stats">
+                    <span class="stat">⏱️ Hatch Time: 30 minutes</span>
+                    <span class="stat">📊 Shop Chance: High</span>
+                    <span class="stat">🎯 Best For: Early game</span>
+                </div>
+            </div>
+            <div class="pets-grid">
+                <div class="pet-card">
+                    <div class="pet-name">
+                        🐕 Dog
+                        <span class="tier-badge tier-c">C Tier</span>
+                    </div>
+                    <div class="hatch-chance">33.33% Chance</div>
+                    <div class="ability">
+                        <strong>Ability:</strong> Has a 5% chance to dig up a random seed every 60 seconds. Great for getting free seeds early in the game!
+                    </div>
+                </div>
+                <div class="pet-card">
+                    <div class="pet-name">
+                        🦮 Golden Lab
+                        <span class="tier-badge tier-c">C Tier</span>
+                    </div>
+                    <div class="hatch-chance">33.33% Chance</div>
+                    <div class="ability">
+                        <strong>Ability:</strong> Same as Dog but success rate increases as the pet gets older. Better long-term investment than regular Dog.
+                    </div>
+                </div>
+                <div class="pet-card">
+                    <div class="pet-name">
+                        🐰 Bunny
+                        <span class="tier-badge tier-c">C Tier</span>
+                    </div>
+                    <div class="hatch-chance">33.33% Chance</div>
+                    <div class="ability">
+                        <strong>Ability:</strong> Eats carrots every 40 seconds and automatically sells them for 1.5x their base value. Requires carrots in your garden.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Uncommon Egg -->
+        <div class="egg-section" data-egg="uncommon">
+            <div class="egg-header uncommon-header">
+                🥚 Uncommon Egg
+            </div>
+            <div class="egg-info">
+                <span class="egg-cost">💰 Cost: 150,000 Sheckles</span>
+                <div class="egg-stats">
+                    <span class="stat">⏱️ Hatch Time: 1 hour</span>
+                    <span class="stat">📊 Shop Chance: Medium</span>
+                    <span class="stat">🎯 Best For: Mid-early game</span>
+                </div>
+            </div>
+            <div class="pets-grid">
+                <div class="pet-card">
+                    <div class="pet-name">
+                        🐷 Pig
+                        <span class="tier-badge tier-a">A Tier</span>
+                    </div>
+                    <div class="hatch-chance">16.67% Chance</div>
+                    <div class="ability">
+                        <strong>Ability:</strong> Every 118 seconds, emits an aura for 15 seconds that grants 2x chance for plants within 15 studs to grow variant fruits. Excellent for mutations!
+                    </div>
+                </div>
+                <div class="pet-card">
+                    <div class="pet-name">
+                        🐱 Cat
+                        <span class="tier-badge tier-c">C Tier</span>
+                    </div>
+                    <div class="hatch-chance">25% Chance</div>
+                    <div class="ability">
+                        <strong>Ability:</strong> Naps for 10 seconds every 80 seconds, causing new fruit within 10 studs to grow 1.25x larger.
+                    </div>
+                </div>
+                <div class="pet-card">
+                    <div class="pet-name">
+                        🐰 Black Bunny
+                        <span class="tier-badge tier-c">C Tier</span>
+                    </div>
+                    <div class="hatch-chance">25% Chance</div>
+                    <div class="ability">
+                        <strong>Ability:</strong> Same as regular Bunny - eats carrots at 1.5x value bonus every 40 seconds. Requires carrots in garden.
+                    </div>
+                </div>
+                <div class="pet-card">
+                    <div class="pet-name">
+                        🦌 Deer
+                        <span class="tier-badge tier-c">C Tier</span>
+                    </div>
+                    <div class="hatch-chance">25% Chance</div>
+                    <div class="ability">
+                        <strong>Ability:</strong> Gives a 3% chance for berry plants to replant themselves when you harvest them.
+                    </div>
+                </div>
+                <div class="pet-card">
+                    <div class="pet-name">
+                        🐔 Chicken
+                        <span class="tier-badge tier-c">C Tier</span>
+                    </div>
+                    <div class="hatch-chance">25% Chance</div>
+                    <div class="ability">
+                        <strong>Ability:</strong> Increases egg hatch speed by 10%. When paired with a Rooster, there's an 11.45% chance the chicken will lay an egg.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rare Egg -->
+        <div class="egg-section" data-egg="rare">
+            <div class="egg-header rare-header">
+                🥚 Rare Egg
+            </div>
+            <div class="egg-info">
+                <span class="egg-cost">💰 Cost: 600,000 Sheckles</span>
+                <div class="egg-stats">
+                    <span class="stat">⏱️ Hatch Time: 2 hours</span>
+                    <span class="stat">📊 Shop Chance: 24%</span>
+                    <span class="stat">🎯 Best For: Mid game profits</span>
+                </div>
+            </div>
+            <div class="pets-grid">
+                <div class="pet-card">
+                    <div class="pet-name">
+                        🦌 Spotted Deer
+                        <span class="tier-badge tier-b">B Tier</span>
+                    </div>
+                    <div class="hatch-chance">25% Chance</div>
+                    <div class="ability">
+                        <strong>Ability:</strong> Higher chance for berry bushes to stay after harvest compared to regular Deer. Great for berry farming.
+                    </div>
+                </div>
+                <div class="pet-card">
+                    <div class="pet-name">
+                        🐱 Orange Tabby
+                        <span class="tier-badge tier-b">B Tier</span>
+                    </div>
+                    <div class="hatch-chance">33.33% Chance</div>
+                    <div class="ability">
+                        <strong>Ability:</strong> Naps for 15 seconds every 90 seconds, causing new fruit within 15 studs to grow 1.5x larger. Better than regular Cat.
+                    </div>
+                </div>
+                <div class="pet-card">
+                    <div class="pet-name">
+                        🐵 Monkey
+                        <span class="tier-badge tier-b">B Tier</span>
+                    </div>
+                    <div class="hatch-chance">8.33% Chance</div>
+                    <div class="ability">
+                        <strong>Ability:</strong> When you sell fruit, there's a 2.5% chance of getting a refund. Rarer fruits have lower refund chances.
+                    </div>
+                </div>
+                <div class="pet-card">
+                    <div class="pet-name">
+                        🐓 Rooster
+                        <span class="tier-badge tier-d">D Tier</span>
+                    </div>
+                    <div class="hatch-chance">20.52% Chance</div>
+                    <div class="ability">
+                        <strong>Ability:</strong> Cuts egg hatch time by 20.52%. Works well with Chicken for egg production.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Legendary Egg -->
+        <div class="egg-section" data-egg="legendary">
+            <div class="egg-header legendary-header">
+                🥚 Legendary Egg
+            </div>
+            <div class="egg-info">
+                <span class="egg-cost">💰 Cost: 2,500,000 Sheckles</span>
+                <div class="egg-stats">
+                    <span class="stat">⏱️ Hatch Time: 4 hours</span>
+                    <span class="stat">📊 Shop Chance: Low</span>
+                    <span class="stat">🎯 Best For: High-tier abilities</span>
+                </div>
+            </div>
+            <div class="pets-grid">
+                <div class="pet-card">
+                    <div class="pet-name">
+                        🐻‍❄️ Polar Bear
+                        <span class="tier-badge tier-s">S Tier</span>
+                    </div>
+                    <div class="hatch-chance">2.13% Chance</div>
+                    <div class="ability">
+                        <strong>Ability:</strong> Has a 10% chance to turn a nearby crop Chilled or Frozen every 90 seconds. Extremely valuable mutations!
+                    </div>
+                </div>
+                <div class="pet-card">
+                    <div class="pet-name">
+                        🐵 Silver Monkey
+                        <span class="tier-badge tier-s">S Tier</span>
+                    </div>
+                    <div class="hatch-chance">42.55% Chance</div>
+                    <div class="ability">
+                        <strong>Ability:</strong> When you sell fruit, there's an 8% chance of getting a refund. Much better than regular Monkey!
+                    </div>
+                </div>
+                <div class="pet-card">
+                    <div class="pet-name">
+                        🐄 Cow
+                        <span class="tier-badge tier-a">A Tier</span>
+                    </div>
+                    <div class="hatch-chance">42.55% Chance</div>
+                    <div class="ability">
+                        <strong>Ability:</strong> Causes all plants within 8 studs to grow 1.12x faster. Great for speeding up your entire garden!
+                    </div>
+                </div>
+                <div class="pet-card">
+                    <div class="pet-name">
+                        🦦 Sea Otter
+                        <span class="tier-badge tier-a">A Tier</span>
+                    </div>
+                    <div class="hatch-chance">10.64% Chance</div>
+                    <div class="ability">
+                        <strong>Ability:</strong> Every 30 seconds, sprays water on the nearest plant within 15 studs, speeding up its growth.
+                    </div>
+                </div>
+                <div class="pet-card">
+                    <div class="pet-name">
+                        🐢 Turtle
+                        <span class="tier-badge tier-b">B Tier</span>
+                    </div>
+                    <div class="hatch-chance">2.13% Chance</div>
+                    <div class="ability">
+                        <strong>Ability:</strong> All sprinklers in your garden last 20% longer. Useful for water management.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mythical Egg -->
+        <div class="egg-section" data-egg="mythical">
+            <div class="egg-header mythical-header">
+                🥚 Mythical Egg
+            </div>
+            <div class="egg-info">
+                <span class="egg-cost">💰 Cost: 8,000,000 Sheckles</span>
+                <div class="egg-stats">
+                    <span class="stat">⏱️ Hatch Time: 8 hours</span>
+                    <span class="stat">📊 Shop Chance: Very Rare</span>
+                    <span class="stat">🎯 Best For: End-game power</span>
+                </div>
+            </div>
+            <div class="pets-grid">
+                <div class="pet-card">
+                    <div class="pet-name">
+                        🦊 Red Fox
+                        <span class="tier-badge tier-s">S Tier</span>
+                    </div>
+                    <div class="hatch-chance">1.79% Chance</div>
+                    <div class="ability">
+                        <strong>Ability:</strong> Steals a seed from another player's garden every 10 minutes. Can get you rare seeds you couldn't obtain otherwise!
+                    </div>
+                </div>
+                <div class="pet-card">
+                    <div class="pet-name">
+                        🐜 Red Giant Ant
+                        <span class="tier-badge tier-s">S Tier</span>
+                    </div>
+                    <div class="hatch-chance">8.93% Chance</div>
+                    <div class="ability">
+                        <strong>Ability:</strong> 5% chance to duplicate any crop on harvest (10% for fruits). Excellent for profit multiplication!
+                    </div>
+                </div>
+                <div class="pet-card">
+                    <div class="pet-name">
+                        🐿️ Squirrel
+                        <span class="tier-badge tier-a">A Tier</span>
+                    </div>
+                    <div class="hatch-chance">26.79% Chance</div>
+                    <div class="ability">
+                        <strong>Ability:</strong> 2.5% chance to keep a seed when planting it. Saves rare seeds for replanting!
+                    </div>
+                </div>
+                <div class="pet-card">
+                    <div class="pet-name">
+                        🐭 Grey Mouse
+                        <span class="tier-badge tier-b">B Tier</span>
+                    </div>
+                    <div class="hatch-chance">35.71% Chance</div>
+                    <div class="ability">
+                        <strong>Ability:</strong> Gains 500 bonus XP every 10 minutes and increases your movement speed by 10%.
+                    </div>
+                </div>
+                <div class="pet-card">
+                    <div class="pet-name">
+                        🐭 Brown Mouse
+                        <span class="tier-badge tier-c">C Tier</span>
+                    </div>
+                    <div class="hatch-chance">26.79% Chance</div>
+                    <div class="ability">
+                        <strong>Ability:</strong> Gains 750 bonus XP every 8 minutes and increases your jump height by 10%.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bug Egg -->
+        <div class="egg-section" data-egg="bug">
+            <div class="egg-header bug-header">
+                🥚 Bug Egg
+            </div>
+            <div class="egg-info">
+                <span class="egg-cost">💰 Cost: 1,200,000 Sheckles</span>
+                <div class="egg-stats">
+                    <span class="stat">⏱️ Hatch Time: 8 hours</span>
+                    <span class="stat">📊 Shop Chance: 3%</span>
+                    <span class="stat">🎯 Best For: Top-tier pets</span>
+                </div>
+            </div>
+            <div class="pets-grid">
+                <div class="pet-card">
+                    <div class="pet-name">
+                        🐲 Dragonfly
+                        <span class="tier-badge tier-s">S Tier</span>
+                    </div>
+                    <div class="hatch-chance">3% Chance</div>
+                    <div class="ability">
+                        <strong>Ability:</strong> Turns a random crop Gold every 5 minutes. One of the most valuable pets in the game!
+                    </div>
+                </div>
+                <div class="pet-card">
+                    <div class="pet-name">
+                        🐌 Snail
+                        <span class="tier-badge tier-s">S Tier</span>
+                    </div>
+                    <div class="hatch-chance">40% Chance</div>
+                    <div class="ability">
+                        <strong>Ability:</strong> Gives a 5% increased chance for plants you harvest to drop a seed. Great for seed farming!
+                    </div>
+                </div>
+                <div class="pet-card">
+                    <div class="pet-name">
+                        🦗 Praying Mantis
+                        <span class="tier-badge tier-a">A Tier</span>
+                    </div>
+                    <div class="hatch-chance">4% Chance</div>
+                    <div class="ability">
+                        <strong>Ability:</strong> Prays for 10 seconds every 80 seconds, granting 1.5x chance to mutate crops within 10 studs.
+                    </div>
+                </div>
+                <div class="pet-card">
+                    <div class="pet-name">
+                        🐜 Giant Ant
+                        <span class="tier-badge tier-a">A Tier</span>
+                    </div>
+                    <div class="hatch-chance">30% Chance</div>
+                    <div class="ability">
+                        <strong>Ability:</strong> 10% chance to duplicate any crop on harvest. The rarer the fruit, the less likely it is to duplicate.
+                    </div>
+                </div>
+                <div class="pet-card">
+                    <div class="pet-name">
+                        🐛 Caterpillar
+                        <span class="tier-badge tier-b">B Tier</span>
+                    </div>
+                    <div class="hatch-chance">25% Chance</div>
+                    <div class="ability">
+                        <strong>Ability:</strong> Leafy plants grow 1.65x faster. Perfect for lettuce and other leafy crop farming!
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Special Event Pets -->
+        <div class="egg-section" data-egg="special">
+            <div class="egg-header special-header">
+                🎉 Special Event Pets
+            </div>
+            <div class="egg-info">
+                <span class="egg-cost">💰 Cost: Various (Limited Time/Trading)</span>
+                <div class="egg-stats">
+                    <span class="stat">⏱️ Availability: Event Only</span>
+                    <span class="stat">📊 Rarity: Extremely Rare</span>
+                    <span class="stat">🎯 Best For: Collectors</span>
+                </div>
+            </div>
+            <div class="pets-grid">
+                <div class="pet-card">
+                    <div class="pet-name">
+                        🐼 Panda
+                        <span class="tier-badge tier-d">D Tier</span>
+                    </div>
+                    <div class="hatch-chance">Launch Event Only</div>
+                    <div class="ability">
+                        <strong>Ability:</strong> Eats bamboo and auto-sells it for a small multiplier. Mostly collectible value now.
