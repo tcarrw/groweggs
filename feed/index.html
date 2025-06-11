@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grow a Garden - Pet Eggs Chart</title>
+    <title>Grow a Garden - Pet Feeding & Fruit Guide</title>
     <style>
         * {
             margin: 0;
@@ -28,167 +28,40 @@
             backdrop-filter: blur(10px);
         }
 
-        h1 {
+        .header {
             text-align: center;
-            color: #2c3e50;
-            margin-bottom: 10px;
-            font-size: 2.5em;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .subtitle {
-            text-align: center;
-            color: #7f8c8d;
             margin-bottom: 30px;
-            font-size: 1.1em;
         }
 
-        .egg-section {
-            margin-bottom: 40px;
-            border: 2px solid #e0e0e0;
-            border-radius: 15px;
-            overflow: hidden;
-            background: white;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .egg-section:hover {
-            transform: translateY(-5px);
-        }
-
-        .egg-header {
-            padding: 20px;
-            font-size: 1.4em;
-            font-weight: bold;
-            color: white;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .egg-header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            animation: shimmer 3s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-
-        .common-header { background: linear-gradient(135deg, #95a5a6, #7f8c8d); }
-        .uncommon-header { background: linear-gradient(135deg, #2ecc71, #27ae60); }
-        .rare-header { background: linear-gradient(135deg, #3498db, #2980b9); }
-        .legendary-header { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
-        .mythical-header { background: linear-gradient(135deg, #e74c3c, #c0392b); }
-        .bug-header { background: linear-gradient(135deg, #f39c12, #e67e22); }
-        .special-header { background: linear-gradient(135deg, #1abc9c, #16a085); }
-
-        .pets-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 20px;
-            padding: 20px;
-        }
-
-        .pet-card {
-            background: linear-gradient(145deg, #ffffff, #f8f9fa);
-            border-radius: 15px;
-            padding: 20px;
-            border: 1px solid #e9ecef;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .pet-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-            border-color: #667eea;
-        }
-
-        .pet-name {
-            font-size: 1.3em;
-            font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .tier-badge {
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8em;
-            font-weight: bold;
-            color: white;
-        }
-
-        .tier-s { background: linear-gradient(45deg, #ff6b6b, #ee5a24); }
-        .tier-a { background: linear-gradient(45deg, #feca57, #ff9ff3); }
-        .tier-b { background: linear-gradient(45deg, #48dbfb, #0abde3); }
-        .tier-c { background: linear-gradient(45deg, #1dd1a1, #10ac84); }
-        .tier-d { background: linear-gradient(45deg, #a4b0be, #747d8c); }
-
-        .hatch-chance {
+        .back-link {
+            display: inline-block;
             background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
-            padding: 8px 16px;
+            padding: 12px 25px;
             border-radius: 25px;
+            text-decoration: none;
             font-weight: bold;
-            display: inline-block;
-            margin-bottom: 15px;
-            font-size: 1.1em;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
         }
 
-        .ability {
-            color: #34495e;
-            line-height: 1.6;
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 10px;
-            border-left: 4px solid #667eea;
-            margin-top: 10px;
-            font-size: 0.95em;
+        .back-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
         }
 
-        .egg-info {
-            background: #e8f4fd;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            border-left: 4px solid #3498db;
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
         }
 
-        .egg-cost {
-            font-weight: bold;
-            color: #e67e22;
-            margin-right: 15px;
-        }
-
-        .egg-stats {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 10px;
-            font-size: 0.9em;
-        }
-
-        .stat {
-            background: rgba(52, 152, 219, 0.1);
-            padding: 5px 10px;
-            border-radius: 15px;
-            border: 1px solid rgba(52, 152, 219, 0.2);
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.1em;
+            margin-bottom: 30px;
         }
 
         .search-container {
@@ -239,8 +112,249 @@
 
         .filter-btn.active { background: #667eea; }
 
+        .fruit-section {
+            margin-bottom: 40px;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .fruit-section:hover {
+            transform: translateY(-5px);
+        }
+
+        .section-header {
+            padding: 20px;
+            font-size: 1.4em;
+            font-weight: bold;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .common-fruits { background: linear-gradient(135deg, #95a5a6, #7f8c8d); }
+        .uncommon-fruits { background: linear-gradient(135deg, #2ecc71, #27ae60); }
+        .rare-fruits { background: linear-gradient(135deg, #3498db, #2980b9); }
+        .legendary-fruits { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
+        .mythical-fruits { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+        .mutation-fruits { background: linear-gradient(135deg, #f39c12, #e67e22); }
+
+        .fruits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .fruit-card {
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid #e9ecef;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fruit-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border-color: #667eea;
+        }
+
+        .fruit-name {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .rarity-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7em;
+            font-weight: bold;
+            color: white;
+        }
+
+        .common-badge { background: linear-gradient(45deg, #95a5a6, #7f8c8d); }
+        .uncommon-badge { background: linear-gradient(45deg, #2ecc71, #27ae60); }
+        .rare-badge { background: linear-gradient(45deg, #3498db, #2980b9); }
+        .legendary-badge { background: linear-gradient(45deg, #9b59b6, #8e44ad); }
+        .mythical-badge { background: linear-gradient(45deg, #e74c3c, #c0392b); }
+        .mutation-badge { background: linear-gradient(45deg, #f39c12, #e67e22); }
+
+        .fruit-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .stat-item {
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: #6c757d;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .feeding-info {
+            background: #e8f4fd;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 4px solid #3498db;
+        }
+
+        .feeding-title {
+            font-weight: bold;
+            color: #2980b9;
+            margin-bottom: 8px;
+        }
+
+        .hunger-bar {
+            width: 100%;
+            height: 20px;
+            background: #ecf0f1;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 8px 0;
+            border: 1px solid #bdc3c7;
+        }
+
+        .hunger-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #e74c3c, #f39c12, #f1c40f, #2ecc71);
+            border-radius: 10px;
+            transition: width 0.3s ease;
+            position: relative;
+        }
+
+        .hunger-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: sparkle 2s infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
+        }
+
+        .mutations {
+            background: #fff3cd;
+            padding: 12px;
+            border-radius: 10px;
+            border-left: 4px solid #f39c12;
+            margin-bottom: 10px;
+        }
+
+        .mutations-title {
+            font-weight: bold;
+            color: #e67e22;
+            margin-bottom: 8px;
+        }
+
+        .mutation-tag {
+            display: inline-block;
+            background: linear-gradient(45deg, #f39c12, #e67e22);
+            color: white;
+            padding: 4px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            margin: 2px;
+            font-weight: bold;
+        }
+
+        .special-tip {
+            background: #d4edda;
+            padding: 12px;
+            border-radius: 10px;
+            border-left: 4px solid #28a745;
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+
+        .tip-icon {
+            color: #28a745;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        .tips-section {
+            background: linear-gradient(145deg, #f8f9fa, #e9ecef);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+            border: 2px solid #dee2e6;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .tip-card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 4px solid #667eea;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .tip-card h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
         @media (max-width: 768px) {
-            .pets-grid {
+            .fruits-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .fruit-stats {
                 grid-template-columns: 1fr;
             }
             
@@ -257,495 +371,458 @@
 </head>
 <body>
     <div class="container">
-        <h1>🥚 Grow a Garden Pet Eggs Chart 🐾</h1>
-        <p class="subtitle">Complete guide to all pets, their abilities, and hatch rates</p>
+        <div class="header">
+            <a href="https://groweggs.plnt.earth" class="back-link">← Back to Pet Eggs Chart</a>
+            <h1>🍎 Pet Feeding & Fruit Guide 🐾</h1>
+            <p class="subtitle">Complete guide to feeding pets, fruit values, and mutations</p>
+        </div>
         
         <div class="search-container">
-            <input type="text" class="search-box" placeholder="Search pets by name or ability..." id="searchInput">
+            <input type="text" class="search-box" placeholder="Search fruits by name or mutation..." id="searchInput">
         </div>
 
         <div class="filter-buttons">
-            <button class="filter-btn active" data-filter="all">All Eggs</button>
+            <button class="filter-btn active" data-filter="all">All Fruits</button>
             <button class="filter-btn" data-filter="common">Common</button>
             <button class="filter-btn" data-filter="uncommon">Uncommon</button>
             <button class="filter-btn" data-filter="rare">Rare</button>
             <button class="filter-btn" data-filter="legendary">Legendary</button>
             <button class="filter-btn" data-filter="mythical">Mythical</button>
-            <button class="filter-btn" data-filter="bug">Bug</button>
-            <button class="filter-btn" data-filter="special">Special</button>
+            <button class="filter-btn" data-filter="mutation">Mutations</button>
         </div>
 
-        <!-- Common Egg -->
-        <div class="egg-section" data-egg="common">
-            <div class="egg-header common-header">
-                🥚 Common Egg
+        <!-- Common Fruits -->
+        <div class="fruit-section" data-category="common">
+            <div class="section-header common-fruits">
+                🥕 Common Fruits & Vegetables
             </div>
-            <div class="egg-info">
-                <span class="egg-cost">💰 Cost: 25,000 Sheckles</span>
-                <div class="egg-stats">
-                    <span class="stat">⏱️ Hatch Time: 30 minutes</span>
-                    <span class="stat">📊 Shop Chance: High</span>
-                    <span class="stat">🎯 Best For: Early game</span>
-                </div>
-            </div>
-            <div class="pets-grid">
-                <div class="pet-card">
-                    <div class="pet-name">
-                        🐕 Dog
-                        <span class="tier-badge tier-c">C Tier</span>
+            <div class="fruits-grid">
+                <div class="fruit-card">
+                    <div class="fruit-name">
+                        🥕 Carrot
+                        <span class="rarity-badge common-badge">Common</span>
                     </div>
-                    <div class="hatch-chance">33.33% Chance</div>
-                    <div class="ability">
-                        <strong>Ability:</strong> Has a 5% chance to dig up a random seed every 60 seconds. Great for getting free seeds early in the game!
+                    <div class="fruit-stats">
+                        <div class="stat-item">
+                            <div class="stat-label">Sell Price</div>
+                            <div class="stat-value">250 Sheckles</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Growth Time</div>
+                            <div class="stat-value">2 minutes</div>
+                        </div>
                     </div>
-                </div>
-                <div class="pet-card">
-                    <div class="pet-name">
-                        🦮 Golden Lab
-                        <span class="tier-badge tier-c">C Tier</span>
+                    <div class="feeding-info">
+                        <div class="feeding-title">🍽️ Pet Feeding Value</div>
+                        <div class="hunger-bar">
+                            <div class="hunger-fill" style="width: 15%;"></div>
+                        </div>
+                        <div>Restores 15% hunger | Perfect for Bunny pets</div>
                     </div>
-                    <div class="hatch-chance">33.33% Chance</div>
-                    <div class="ability">
-                        <strong>Ability:</strong> Same as Dog but success rate increases as the pet gets older. Better long-term investment than regular Dog.
+                    <div class="mutations">
+                        <div class="mutations-title">🧬 Common Mutations</div>
+                        <span class="mutation-tag">Giant</span>
+                        <span class="mutation-tag">Golden</span>
+                        <span class="mutation-tag">Sweet</span>
                     </div>
-                </div>
-                <div class="pet-card">
-                    <div class="pet-name">
-                        🐰 Bunny
-                        <span class="tier-badge tier-c">C Tier</span>
-                    </div>
-                    <div class="hatch-chance">33.33% Chance</div>
-                    <div class="ability">
-                        <strong>Ability:</strong> Eats carrots every 40 seconds and automatically sells them for 1.5x their base value. Requires carrots in your garden.
+                    <div class="special-tip">
+                        <span class="tip-icon">💡</span>
+                        <strong>Tip:</strong> Best hunger-to-cost ratio for high-tier pets!
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Uncommon Egg -->
-        <div class="egg-section" data-egg="uncommon">
-            <div class="egg-header uncommon-header">
-                🥚 Uncommon Egg
-            </div>
-            <div class="egg-info">
-                <span class="egg-cost">💰 Cost: 150,000 Sheckles</span>
-                <div class="egg-stats">
-                    <span class="stat">⏱️ Hatch Time: 1 hour</span>
-                    <span class="stat">📊 Shop Chance: Medium</span>
-                    <span class="stat">🎯 Best For: Mid-early game</span>
-                </div>
-            </div>
-            <div class="pets-grid">
-                <div class="pet-card">
-                    <div class="pet-name">
-                        🐷 Pig
-                        <span class="tier-badge tier-a">A Tier</span>
+                <div class="fruit-card">
+                    <div class="fruit-name">
+                        🥭 Mango
+                        <span class="rarity-badge legendary-badge">Legendary</span>
                     </div>
-                    <div class="hatch-chance">16.67% Chance</div>
-                    <div class="ability">
-                        <strong>Ability:</strong> Every 118 seconds, emits an aura for 15 seconds that grants 2x chance for plants within 15 studs to grow variant fruits. Excellent for mutations!
+                    <div class="fruit-stats">
+                        <div class="stat-item">
+                            <div class="stat-label">Sell Price</div>
+                            <div class="stat-value">7,200 Sheckles</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Growth Time</div>
+                            <div class="stat-value">35 minutes</div>
+                        </div>
                     </div>
-                </div>
-                <div class="pet-card">
-                    <div class="pet-name">
-                        🐱 Cat
-                        <span class="tier-badge tier-c">C Tier</span>
+                    <div class="feeding-info">
+                        <div class="feeding-title">🍽️ Pet Feeding Value</div>
+                        <div class="hunger-bar">
+                            <div class="hunger-fill" style="width: 60%;"></div>
+                        </div>
+                        <div>Restores 60% hunger | Exotic sweetness</div>
                     </div>
-                    <div class="hatch-chance">25% Chance</div>
-                    <div class="ability">
-                        <strong>Ability:</strong> Naps for 10 seconds every 80 seconds, causing new fruit within 10 studs to grow 1.25x larger.
+                    <div class="mutations">
+                        <div class="mutations-title">🧬 Common Mutations</div>
+                        <span class="mutation-tag">Tropical</span>
+                        <span class="mutation-tag">Smooth</span>
+                        <span class="mutation-tag">Juicy</span>
+                        <span class="mutation-tag">Orange</span>
                     </div>
-                </div>
-                <div class="pet-card">
-                    <div class="pet-name">
-                        🐰 Black Bunny
-                        <span class="tier-badge tier-c">C Tier</span>
-                    </div>
-                    <div class="hatch-chance">25% Chance</div>
-                    <div class="ability">
-                        <strong>Ability:</strong> Same as regular Bunny - eats carrots at 1.5x value bonus every 40 seconds. Requires carrots in garden.
+                    <div class="special-tip">
+                        <span class="tip-icon">💡</span>
+                        <strong>Tip:</strong> Polar Bears love the tropical contrast - great for mutation pets!
                     </div>
                 </div>
-                <div class="pet-card">
-                    <div class="pet-name">
-                        🦌 Deer
-                        <span class="tier-badge tier-c">C Tier</span>
+
+                <div class="fruit-card">
+                    <div class="fruit-name">
+                        🍑 Cherry
+                        <span class="rarity-badge legendary-badge">Legendary</span>
                     </div>
-                    <div class="hatch-chance">25% Chance</div>
-                    <div class="ability">
-                        <strong>Ability:</strong> Gives a 3% chance for berry plants to replant themselves when you harvest them.
+                    <div class="fruit-stats">
+                        <div class="stat-item">
+                            <div class="stat-label">Sell Price</div>
+                            <div class="stat-value">6,800 Sheckles</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Growth Time</div>
+                            <div class="stat-value">30 minutes</div>
+                        </div>
                     </div>
-                </div>
-                <div class="pet-card">
-                    <div class="pet-name">
-                        🐔 Chicken
-                        <span class="tier-badge tier-c">C Tier</span>
+                    <div class="feeding-info">
+                        <div class="feeding-title">🍽️ Pet Feeding Value</div>
+                        <div class="hunger-bar">
+                            <div class="hunger-fill" style="width: 55%;"></div>
+                        </div>
+                        <div>Restores 55% hunger | Small but mighty</div>
                     </div>
-                    <div class="hatch-chance">25% Chance</div>
-                    <div class="ability">
-                        <strong>Ability:</strong> Increases egg hatch speed by 10%. When paired with a Rooster, there's an 11.45% chance the chicken will lay an egg.
+                    <div class="mutations">
+                        <div class="mutations-title">🧬 Common Mutations</div>
+                        <span class="mutation-tag">Paired</span>
+                        <span class="mutation-tag">Red</span>
+                        <span class="mutation-tag">Sweet</span>
+                        <span class="mutation-tag">Pit</span>
+                    </div>
+                    <div class="special-tip">
+                        <span class="tip-icon">💡</span>
+                        <strong>Tip:</strong> Fast growth for legendary tier - efficient premium feeding!
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Rare Egg -->
-        <div class="egg-section" data-egg="rare">
-            <div class="egg-header rare-header">
-                🥚 Rare Egg
+        <!-- Mythical Fruits -->
+        <div class="fruit-section" data-category="mythical">
+            <div class="section-header mythical-fruits">
+                🌟 Mythical Fruits
             </div>
-            <div class="egg-info">
-                <span class="egg-cost">💰 Cost: 600,000 Sheckles</span>
-                <div class="egg-stats">
-                    <span class="stat">⏱️ Hatch Time: 2 hours</span>
-                    <span class="stat">📊 Shop Chance: 24%</span>
-                    <span class="stat">🎯 Best For: Mid game profits</span>
-                </div>
-            </div>
-            <div class="pets-grid">
-                <div class="pet-card">
-                    <div class="pet-name">
-                        🦌 Spotted Deer
-                        <span class="tier-badge tier-b">B Tier</span>
+            <div class="fruits-grid">
+                <div class="fruit-card">
+                    <div class="fruit-name">
+                        🌸 Candy Blossom
+                        <span class="rarity-badge mythical-badge">Mythical</span>
                     </div>
-                    <div class="hatch-chance">25% Chance</div>
-                    <div class="ability">
-                        <strong>Ability:</strong> Higher chance for berry bushes to stay after harvest compared to regular Deer. Great for berry farming.
+                    <div class="fruit-stats">
+                        <div class="stat-item">
+                            <div class="stat-label">Sell Price</div>
+                            <div class="stat-value">25,000 Sheckles</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Growth Time</div>
+                            <div class="stat-value">2 hours</div>
+                        </div>
                     </div>
-                </div>
-                <div class="pet-card">
-                    <div class="pet-name">
-                        🐱 Orange Tabby
-                        <span class="tier-badge tier-b">B Tier</span>
+                    <div class="feeding-info">
+                        <div class="feeding-title">🍽️ Pet Feeding Value</div>
+                        <div class="hunger-bar">
+                            <div class="hunger-fill" style="width: 90%;"></div>
+                        </div>
+                        <div>Restores 90% hunger | Ultimate pet treat</div>
                     </div>
-                    <div class="hatch-chance">33.33% Chance</div>
-                    <div class="ability">
-                        <strong>Ability:</strong> Naps for 15 seconds every 90 seconds, causing new fruit within 15 studs to grow 1.5x larger. Better than regular Cat.
+                    <div class="mutations">
+                        <div class="mutations-title">🧬 Common Mutations</div>
+                        <span class="mutation-tag">Magical</span>
+                        <span class="mutation-tag">Pink</span>
+                        <span class="mutation-tag">Flowering</span>
+                        <span class="mutation-tag">Sweet</span>
+                        <span class="mutation-tag">Ethereal</span>
                     </div>
-                </div>
-                <div class="pet-card">
-                    <div class="pet-name">
-                        🐵 Monkey
-                        <span class="tier-badge tier-b">B Tier</span>
-                    </div>
-                    <div class="hatch-chance">8.33% Chance</div>
-                    <div class="ability">
-                        <strong>Ability:</strong> When you sell fruit, there's a 2.5% chance of getting a refund. Rarer fruits have lower refund chances.
+                    <div class="special-tip">
+                        <span class="tip-icon">💡</span>
+                        <strong>Tip:</strong> Nearly fills any pet completely - save for your best pets!
                     </div>
                 </div>
-                <div class="pet-card">
-                    <div class="pet-name">
-                        🐓 Rooster
-                        <span class="tier-badge tier-d">D Tier</span>
+
+                <div class="fruit-card">
+                    <div class="fruit-name">
+                        🍄 Mystic Mushroom
+                        <span class="rarity-badge mythical-badge">Mythical</span>
                     </div>
-                    <div class="hatch-chance">20.52% Chance</div>
-                    <div class="ability">
-                        <strong>Ability:</strong> Cuts egg hatch time by 20.52%. Works well with Chicken for egg production.
+                    <div class="fruit-stats">
+                        <div class="stat-item">
+                            <div class="stat-label">Sell Price</div>
+                            <div class="stat-value">22,500 Sheckles</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Growth Time</div>
+                            <div class="stat-value">90 minutes</div>
+                        </div>
+                    </div>
+                    <div class="feeding-info">
+                        <div class="feeding-title">🍽️ Pet Feeding Value</div>
+                        <div class="hunger-bar">
+                            <div class="hunger-fill" style="width: 85%;"></div>
+                        </div>
+                        <div>Restores 85% hunger | Mystical nourishment</div>
+                    </div>
+                    <div class="mutations">
+                        <div class="mutations-title">🧬 Common Mutations</div>
+                        <span class="mutation-tag">Spored</span>
+                        <span class="mutation-tag">Glowing</span>
+                        <span class="mutation-tag">Underground</span>
+                        <span class="mutation-tag">Magical</span>
+                    </div>
+                    <div class="special-tip">
+                        <span class="tip-icon">💡</span>
+                        <strong>Tip:</strong> Great for Bug pets - they love the earthy flavors!
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Legendary Egg -->
-        <div class="egg-section" data-egg="legendary">
-            <div class="egg-header legendary-header">
-                🥚 Legendary Egg
+        <!-- Special Mutation Fruits -->
+        <div class="fruit-section" data-category="mutation">
+            <div class="section-header mutation-fruits">
+                ✨ Special Mutation Fruits
             </div>
-            <div class="egg-info">
-                <span class="egg-cost">💰 Cost: 2,500,000 Sheckles</span>
-                <div class="egg-stats">
-                    <span class="stat">⏱️ Hatch Time: 4 hours</span>
-                    <span class="stat">📊 Shop Chance: Low</span>
-                    <span class="stat">🎯 Best For: High-tier abilities</span>
-                </div>
-            </div>
-            <div class="pets-grid">
-                <div class="pet-card">
-                    <div class="pet-name">
-                        🐻‍❄️ Polar Bear
-                        <span class="tier-badge tier-s">S Tier</span>
+            <div class="fruits-grid">
+                <div class="fruit-card">
+                    <div class="fruit-name">
+                        🏆 Golden Fruit
+                        <span class="rarity-badge mutation-badge">Gold Mutation</span>
                     </div>
-                    <div class="hatch-chance">2.13% Chance</div>
-                    <div class="ability">
-                        <strong>Ability:</strong> Has a 10% chance to turn a nearby crop Chilled or Frozen every 90 seconds. Extremely valuable mutations!
+                    <div class="fruit-stats">
+                        <div class="stat-item">
+                            <div class="stat-label">Sell Price</div>
+                            <div class="stat-value">Base × 5</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">How to Get</div>
+                            <div class="stat-value">Dragonfly Pet</div>
+                        </div>
                     </div>
-                </div>
-                <div class="pet-card">
-                    <div class="pet-name">
-                        🐵 Silver Monkey
-                        <span class="tier-badge tier-s">S Tier</span>
+                    <div class="feeding-info">
+                        <div class="feeding-title">🍽️ Pet Feeding Value</div>
+                        <div class="hunger-bar">
+                            <div class="hunger-fill" style="width: 100%;"></div>
+                        </div>
+                        <div>Restores base value × 2 | Premium quality</div>
                     </div>
-                    <div class="hatch-chance">42.55% Chance</div>
-                    <div class="ability">
-                        <strong>Ability:</strong> When you sell fruit, there's an 8% chance of getting a refund. Much better than regular Monkey!
-                    </div>
-                </div>
-                <div class="pet-card">
-                    <div class="pet-name">
-                        🐄 Cow
-                        <span class="tier-badge tier-a">A Tier</span>
-                    </div>
-                    <div class="hatch-chance">42.55% Chance</div>
-                    <div class="ability">
-                        <strong>Ability:</strong> Causes all plants within 8 studs to grow 1.12x faster. Great for speeding up your entire garden!
+                    <div class="special-tip">
+                        <span class="tip-icon">💡</span>
+                        <strong>Tip:</strong> Dragonfly turns crops golden every 5 minutes - incredible value!
                     </div>
                 </div>
-                <div class="pet-card">
-                    <div class="pet-name">
-                        🦦 Sea Otter
-                        <span class="tier-badge tier-a">A Tier</span>
+
+                <div class="fruit-card">
+                    <div class="fruit-name">
+                        🌈 Rainbow Fruit
+                        <span class="rarity-badge mutation-badge">Rainbow Mutation</span>
                     </div>
-                    <div class="hatch-chance">10.64% Chance</div>
-                    <div class="ability">
-                        <strong>Ability:</strong> Every 30 seconds, sprays water on the nearest plant within 15 studs, speeding up its growth.
+                    <div class="fruit-stats">
+                        <div class="stat-item">
+                            <div class="stat-label">Sell Price</div>
+                            <div class="stat-value">Base × 8</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">How to Get</div>
+                            <div class="stat-value">5+ Mutations</div>
+                        </div>
+                    </div>
+                    <div class="feeding-info">
+                        <div class="feeding-title">🍽️ Pet Feeding Value</div>
+                        <div class="hunger-bar">
+                            <div class="hunger-fill" style="width: 100%;"></div>
+                        </div>
+                        <div>Restores base value × 3 | Ultimate nutrition</div>
+                    </div>
+                    <div class="special-tip">
+                        <span class="tip-icon">💡</span>
+                        <strong>Tip:</strong> Requires 5+ mutations but gives massive feeding and selling value!
                     </div>
                 </div>
-                <div class="pet-card">
-                    <div class="pet-name">
-                        🐢 Turtle
-                        <span class="tier-badge tier-b">B Tier</span>
+
+                <div class="fruit-card">
+                    <div class="fruit-name">
+                        ❄️ Frozen Fruit
+                        <span class="rarity-badge mutation-badge">Ice Mutation</span>
                     </div>
-                    <div class="hatch-chance">2.13% Chance</div>
-                    <div class="ability">
-                        <strong>Ability:</strong> All sprinklers in your garden last 20% longer. Useful for water management.
+                    <div class="fruit-stats">
+                        <div class="stat-item">
+                            <div class="stat-label">Sell Price</div>
+                            <div class="stat-value">Base × 3</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">How to Get</div>
+                            <div class="stat-value">Polar Bear Pet</div>
+                        </div>
+                    </div>
+                    <div class="feeding-info">
+                        <div class="feeding-title">🍽️ Pet Feeding Value</div>
+                        <div class="hunger-bar">
+                            <div class="hunger-fill" style="width: 80%;"></div>
+                        </div>
+                        <div>Restores base value × 1.5 | Cool and refreshing</div>
+                    </div>
+                    <div class="special-tip">
+                        <span class="tip-icon">💡</span>
+                        <strong>Tip:</strong> Polar Bear has 10% chance to freeze crops - great mutation pet!
+                    </div>
+                </div>
+
+                <div class="fruit-card">
+                    <div class="fruit-name">
+                        🍯 Honey Glazed Fruit
+                        <span class="rarity-badge mutation-badge">Honey Mutation</span>
+                    </div>
+                    <div class="fruit-stats">
+                        <div class="stat-item">
+                            <div class="stat-label">Sell Price</div>
+                            <div class="stat-value">Base × 2.5</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">How to Get</div>
+                            <div class="stat-value">Bear Bee Pet</div>
+                        </div>
+                    </div>
+                    <div class="feeding-info">
+                        <div class="feeding-title">🍽️ Pet Feeding Value</div>
+                        <div class="hunger-bar">
+                            <div class="hunger-fill" style="width: 75%;"></div>
+                        </div>
+                        <div>Restores base value × 1.3 | Sweet honey coating</div>
+                    </div>
+                    <div class="special-tip">
+                        <span class="tip-icon">💡</span>
+                        <strong>Tip:</strong> Bear Bee applies honey glaze every 25 minutes - consistent mutations!
+                    </div>
+                </div>
+
+                <div class="fruit-card">
+                    <div class="fruit-name">
+                        🕺 Disco Fruit
+                        <span class="rarity-badge mutation-badge">Disco Mutation</span>
+                    </div>
+                    <div class="fruit-stats">
+                        <div class="stat-item">
+                            <div class="stat-label">Sell Price</div>
+                            <div class="stat-value">Base × 6</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">How to Get</div>
+                            <div class="stat-value">Disco Bee Pet</div>
+                        </div>
+                    </div>
+                    <div class="feeding-info">
+                        <div class="feeding-title">🍽️ Pet Feeding Value</div>
+                        <div class="hunger-bar">
+                            <div class="hunger-fill" style="width: 95%;"></div>
+                        </div>
+                        <div>Restores base value × 2.5 | Groovy nutrition</div>
+                    </div>
+                    <div class="special-tip">
+                        <span class="tip-icon">💡</span>
+                        <strong>Tip:</strong> Disco Bee is event-exclusive but creates the most valuable mutations!
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Mythical Egg -->
-        <div class="egg-section" data-egg="mythical">
-            <div class="egg-header mythical-header">
-                🥚 Mythical Egg
-            </div>
-            <div class="egg-info">
-                <span class="egg-cost">💰 Cost: 8,000,000 Sheckles</span>
-                <div class="egg-stats">
-                    <span class="stat">⏱️ Hatch Time: 8 hours</span>
-                    <span class="stat">📊 Shop Chance: Very Rare</span>
-                    <span class="stat">🎯 Best For: End-game power</span>
+        <!-- Tips & Strategies Section -->
+        <div class="tips-section">
+            <h2 style="text-align: center; color: #2c3e50; margin-bottom: 20px;">🎯 Pro Feeding Tips & Strategies</h2>
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <h3>🍽️ Efficient Feeding Strategy</h3>
+                    <p><strong>Budget Option:</strong> Use Potatoes and Tomatoes for consistent feeding at low cost.</p>
+                    <p><strong>Premium Option:</strong> Pineapples and Mangoes give best hunger-to-cost ratio for high-tier pets.</p>
+                    <p><strong>Mutation Feeding:</strong> Save Golden and Rainbow fruits for your most valuable pets!</p>
                 </div>
-            </div>
-            <div class="pets-grid">
-                <div class="pet-card">
-                    <div class="pet-name">
-                        🦊 Red Fox
-                        <span class="tier-badge tier-s">S Tier</span>
-                    </div>
-                    <div class="hatch-chance">1.79% Chance</div>
-                    <div class="ability">
-                        <strong>Ability:</strong> Steals a seed from another player's garden every 10 minutes. Can get you rare seeds you couldn't obtain otherwise!
-                    </div>
+
+                <div class="tip-card">
+                    <h3>⏰ Hunger Management</h3>
+                    <p><strong>Timing:</strong> Pets lose hunger over time - feed regularly to maintain abilities.</p>
+                    <p><strong>Emergency:</strong> Keep some fast-growing crops like Lettuce for quick hunger fixes.</p>
+                    <p><strong>Optimization:</strong> Feed pets right before they use their abilities for maximum efficiency.</p>
                 </div>
-                <div class="pet-card">
-                    <div class="pet-name">
-                        🐜 Red Giant Ant
-                        <span class="tier-badge tier-s">S Tier</span>
-                    </div>
-                    <div class="hatch-chance">8.93% Chance</div>
-                    <div class="ability">
-                        <strong>Ability:</strong> 5% chance to duplicate any crop on harvest (10% for fruits). Excellent for profit multiplication!
-                    </div>
+
+                <div class="tip-card">
+                    <h3>💰 Cost-Effective Feeding</h3>
+                    <p><strong>Early Game:</strong> Carrots and Lettuce provide decent hunger at minimal cost.</p>
+                    <p><strong>Mid Game:</strong> Strawberries and Potatoes offer good value proposition.</p>
+                    <p><strong>End Game:</strong> Use mutation fruits to maximize both feeding and profit.</p>
                 </div>
-                <div class="pet-card">
-                    <div class="pet-name">
-                        🐿️ Squirrel
-                        <span class="tier-badge tier-a">A Tier</span>
-                    </div>
-                    <div class="hatch-chance">26.79% Chance</div>
-                    <div class="ability">
-                        <strong>Ability:</strong> 2.5% chance to keep a seed when planting it. Saves rare seeds for replanting!
-                    </div>
+
+                <div class="tip-card">
+                    <h3>🧬 Mutation Synergy</h3>
+                    <p><strong>Dragonfly:</strong> Creates Golden fruits - feed these to other pets for massive hunger restoration.</p>
+                    <p><strong>Polar Bear:</strong> Frozen fruits last longer and provide more nutrition.</p>
+                    <p><strong>Disco Bee:</strong> Disco fruits are the ultimate pet food - save for S-tier pets!</p>
                 </div>
-                <div class="pet-card">
-                    <div class="pet-name">
-                        🐭 Grey Mouse
-                        <span class="tier-badge tier-b">B Tier</span>
-                    </div>
-                    <div class="hatch-chance">35.71% Chance</div>
-                    <div class="ability">
-                        <strong>Ability:</strong> Gains 500 bonus XP every 10 minutes and increases your movement speed by 10%.
-                    </div>
+
+                <div class="tip-card">
+                    <h3>🎯 Pet-Specific Tips</h3>
+                    <p><strong>Bunnies:</strong> Don't manually feed carrots - they eat them automatically for bonus value!</p>
+                    <p><strong>Caterpillars:</strong> Feed leafy fruits like Lettuce for bonus nutrition absorption.</p>
+                    <p><strong>Bug Pets:</strong> Prefer earthy foods like Mushrooms and Potatoes.</p>
                 </div>
-                <div class="pet-card">
-                    <div class="pet-name">
-                        🐭 Brown Mouse
-                        <span class="tier-badge tier-c">C Tier</span>
-                    </div>
-                    <div class="hatch-chance">26.79% Chance</div>
-                    <div class="ability">
-                        <strong>Ability:</strong> Gains 750 bonus XP every 8 minutes and increases your jump height by 10%.
-                    </div>
+
+                <div class="tip-card">
+                    <h3>📊 Advanced Strategies</h3>
+                    <p><strong>Batch Feeding:</strong> Grow multiple crops at once for efficient pet feeding sessions.</p>
+                    <p><strong>Mutation Farming:</strong> Use mutation pets to create premium feeding materials.</p>
+                    <p><strong>Profit Loop:</strong> Sell normal fruits, keep mutations for feeding premium pets.</p>
                 </div>
             </div>
         </div>
 
-        <!-- Bug Egg -->
-        <div class="egg-section" data-egg="bug">
-            <div class="egg-header bug-header">
-                🥚 Bug Egg
-            </div>
-            <div class="egg-info">
-                <span class="egg-cost">💰 Cost: 1,200,000 Sheckles</span>
-                <div class="egg-stats">
-                    <span class="stat">⏱️ Hatch Time: 8 hours</span>
-                    <span class="stat">📊 Shop Chance: 3%</span>
-                    <span class="stat">🎯 Best For: Top-tier pets</span>
-                </div>
-            </div>
-            <div class="pets-grid">
-                <div class="pet-card">
-                    <div class="pet-name">
-                        🐲 Dragonfly
-                        <span class="tier-badge tier-s">S Tier</span>
-                    </div>
-                    <div class="hatch-chance">3% Chance</div>
-                    <div class="ability">
-                        <strong>Ability:</strong> Turns a random crop Gold every 5 minutes. One of the most valuable pets in the game!
-                    </div>
-                </div>
-                <div class="pet-card">
-                    <div class="pet-name">
-                        🐌 Snail
-                        <span class="tier-badge tier-s">S Tier</span>
-                    </div>
-                    <div class="hatch-chance">40% Chance</div>
-                    <div class="ability">
-                        <strong>Ability:</strong> Gives a 5% increased chance for plants you harvest to drop a seed. Great for seed farming!
-                    </div>
-                </div>
-                <div class="pet-card">
-                    <div class="pet-name">
-                        🦗 Praying Mantis
-                        <span class="tier-badge tier-a">A Tier</span>
-                    </div>
-                    <div class="hatch-chance">4% Chance</div>
-                    <div class="ability">
-                        <strong>Ability:</strong> Prays for 10 seconds every 80 seconds, granting 1.5x chance to mutate crops within 10 studs.
-                    </div>
-                </div>
-                <div class="pet-card">
-                    <div class="pet-name">
-                        🐜 Giant Ant
-                        <span class="tier-badge tier-a">A Tier</span>
-                    </div>
-                    <div class="hatch-chance">30% Chance</div>
-                    <div class="ability">
-                        <strong>Ability:</strong> 10% chance to duplicate any crop on harvest. The rarer the fruit, the less likely it is to duplicate.
-                    </div>
-                </div>
-                <div class="pet-card">
-                    <div class="pet-name">
-                        🐛 Caterpillar
-                        <span class="tier-badge tier-b">B Tier</span>
-                    </div>
-                    <div class="hatch-chance">25% Chance</div>
-                    <div class="ability">
-                        <strong>Ability:</strong> Leafy plants grow 1.65x faster. Perfect for lettuce and other leafy crop farming!
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Special Event Pets -->
-        <div class="egg-section" data-egg="special">
-            <div class="egg-header special-header">
-                🎉 Special Event Pets
-            </div>
-            <div class="egg-info">
-                <span class="egg-cost">💰 Cost: Various (Limited Time/Trading)</span>
-                <div class="egg-stats">
-                    <span class="stat">⏱️ Availability: Event Only</span>
-                    <span class="stat">📊 Rarity: Extremely Rare</span>
-                    <span class="stat">🎯 Best For: Collectors</span>
-                </div>
-            </div>
-            <div class="pets-grid">
-                <div class="pet-card">
-                    <div class="pet-name">
-                        🐼 Panda
-                        <span class="tier-badge tier-d">D Tier</span>
-                    </div>
-                    <div class="hatch-chance">Launch Event Only</div>
-                    <div class="ability">
-                        <strong>Ability:</strong> Eats bamboo and auto-sells it for a small multiplier. Mostly collectible value now.
-                    </div>
-                </div>
-                <div class="pet-card">
-                    <div class="pet-name">
-                        🦔 Hedgehog
-                        <span class="tier-badge tier-b">B Tier</span>
-                    </div>
-                    <div class="hatch-chance">Night Event Only</div>
-                    <div class="ability">
-                        <strong>Ability:</strong> Increases size of all prickly fruits by 1.51x. No longer obtainable except through trading.
-                    </div>
-                </div>
-                <div class="pet-card">
-                    <div class="pet-name">
-                        🐝 Disco Bee
-                        <span class="tier-badge tier-s">S Tier</span>
-                    </div>
-                    <div class="hatch-chance">Bee Event Only</div>
-                    <div class="ability">
-                        <strong>Ability:</strong> 12% chance to turn a nearby fruit Disco every 20 minutes. Extremely valuable mutation!
-                    </div>
-                </div>
-                <div class="pet-card">
-                    <div class="pet-name">
-                        🐝 Bear Bee
-                        <span class="tier-badge tier-a">A Tier</span>
-                    </div>
-                    <div class="hatch-chance">Bee Event Only</div>
-                    <div class="ability">
-                        <strong>Ability:</strong> Every 25 minutes, mutates a crop to Honey Glazed. Great for honey-themed mutations.
-                    </div>
-                </div>
-                <div class="pet-card">
-                    <div class="pet-name">
-                        🦝 Raccoon
-                        <span class="tier-badge tier-s">S Tier</span>
-                    </div>
-                    <div class="hatch-chance">Limited Event</div>
-                    <div class="ability">
-                        <strong>Ability:</strong> Can copy your neighbor's plant and give it to you for free. Amazing for getting rare plants!
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tips Section -->
-        <div class="egg-section">
-            <div class="egg-header" style="background: linear-gradient(135deg, #2c3e50, #34495e);">
-                💡 Pro Tips & Strategies
-            </div>
-            <div style="padding: 30px;">
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
-                    <div style="background: #e8f5e8; padding: 20px; border-radius: 15px; border-left: 4px solid #27ae60;">
-                        <h3 style="color: #27ae60; margin-bottom: 10px;">🎯 Best Value Eggs</h3>
-                        <p><strong>Bug Egg:</strong> 4 out of 5 pets are S/A tier - best investment!</p>
-                        <p><strong>Legendary Egg:</strong> High chance for Silver Monkey (42.55%)</p>
-                        <p><strong>Mythical Egg:</strong> All pets are useful, but very expensive</p>
-                    </div>
-                    <div style="background: #fff3cd; padding: 20px; border-radius: 15px; border-left: 4px solid #ffc107;">
-                        <h3 style="color: #f39c12; margin-bottom: 10px;">⚡ Pet Synergies</h3>
-                        <p><strong>Mutation Combo:</strong> Dragonfly + Pig + Praying Mantis</p>
-                        <p><strong>Profit Combo:</strong> Silver Monkey + Red Giant Ant + Snail</p>
-                        <p><strong>Speed Combo:</strong> Cow + Sea Otter + Caterpillar</p>
-                    </div>
-                    <div style="background: #d1ecf1; padding: 20px; border-radius: 15px; border-left: 4px solid #17a2b8;">
-                        <h3 style="color: #17a2b8; margin-bottom: 10px;">🔄 Shop Refresh Tips</h3>
-                        <p><strong>Natural Refresh:</strong> Every 30 minutes automatically</p>
-                        <p><strong>Robux Refresh:</strong> Available for premium players</p>
-                        <p><strong>Discord Alerts:</strong> Join the stock server for notifications</p>
-                    </div>
-                    <div style="background: #f8d7da; padding: 20px; border-radius: 15px; border-left: 4px solid #dc3545;">
-                        <h3 style="color: #dc3545; margin-bottom: 10px;">⚠️ Important Notes</h3>
-                        <p><strong>Huge Chance:</strong> Any pet can be huge with 0.01% chance</p>
-                        <p><strong>Pet Aging:</strong> Feed pets regularly to increase their abilities</p>
-                        <p><strong>Inventory Limit:</strong> Maximum 60 pets, use pet slots wisely</p>
-                    </div>
-                </div>
+        <!-- Quick Reference Table -->
+        <div class="tips-section" style="margin-top: 30px;">
+            <h2 style="text-align: center; color: #2c3e50; margin-bottom: 20px;">📋 Quick Feeding Reference</h2>
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden;">
+                    <thead style="background: linear-gradient(135deg, #667eea, #764ba2); color: white;">
+                        <tr>
+                            <th style="padding: 15px; text-align: left;">Fruit</th>
+                            <th style="padding: 15px; text-align: center;">Hunger %</th>
+                            <th style="padding: 15px; text-align: center;">Cost</th>
+                            <th style="padding: 15px; text-align: center;">Time</th>
+                            <th style="padding: 15px; text-align: center;">Efficiency</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #eee;">
+                            <td style="padding: 12px; font-weight: bold;">🥕 Carrot</td>
+                            <td style="padding: 12px; text-align: center;">15%</td>
+                            <td style="padding: 12px; text-align: center;">125 Sheckles</td>
+                            <td style="padding: 12px; text-align: center;">2 min</td>
+                            <td style="padding: 12px; text-align: center; color: #27ae60; font-weight: bold;">⭐⭐⭐⭐⭐</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #eee; background: #f8f9fa;">
+                            <td style="padding: 12px; font-weight: bold;">🥔 Potato</td>
+                            <td style="padding: 12px; text-align: center;">25%</td>
+                            <td style="padding: 12px; text-align: center;">360 Sheckles</td>
+                            <td style="padding: 12px; text-align: center;">6 min</td>
+                            <td style="padding: 12px; text-align: center; color: #27ae60; font-weight: bold;">⭐⭐⭐⭐</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #eee;">
+                            <td style="padding: 12px; font-weight: bold;">🍍 Pineapple</td>
+                            <td style="padding: 12px; text-align: center;">65%</td>
+                            <td style="padding: 12px; text-align: center;">4,250 Sheckles</td>
+                            <td style="padding: 12px; text-align: center;">45 min</td>
+                            <td style="padding: 12px; text-align: center; color: #f39c12; font-weight: bold;">⭐⭐⭐</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #eee; background: #f8f9fa;">
+                            <td style="padding: 12px; font-weight: bold;">🏆 Golden Fruit</td>
+                            <td style="padding: 12px; text-align: center;">200%</td>
+                            <td style="padding: 12px; text-align: center;">Free (mutation)</td>
+                            <td style="padding: 12px; text-align: center;">Varies</td>
+                            <td style="padding: 12px; text-align: center; color: #e74c3c; font-weight: bold;">⭐⭐⭐⭐⭐</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -753,18 +830,19 @@
     <script>
         // Search functionality
         const searchInput = document.getElementById('searchInput');
-        const petCards = document.querySelectorAll('.pet-card');
-        const eggSections = document.querySelectorAll('.egg-section');
+        const fruitCards = document.querySelectorAll('.fruit-card');
+        const fruitSections = document.querySelectorAll('.fruit-section');
         const filterButtons = document.querySelectorAll('.filter-btn');
 
         searchInput.addEventListener('input', function() {
             const searchTerm = this.value.toLowerCase();
             
-            petCards.forEach(card => {
-                const petName = card.querySelector('.pet-name').textContent.toLowerCase();
-                const ability = card.querySelector('.ability').textContent.toLowerCase();
+            fruitCards.forEach(card => {
+                const fruitName = card.querySelector('.fruit-name').textContent.toLowerCase();
+                const mutations = card.querySelector('.mutations') ? card.querySelector('.mutations').textContent.toLowerCase() : '';
+                const ability = card.querySelector('.special-tip') ? card.querySelector('.special-tip').textContent.toLowerCase() : '';
                 
-                if (petName.includes(searchTerm) || ability.includes(searchTerm)) {
+                if (fruitName.includes(searchTerm) || mutations.includes(searchTerm) || ability.includes(searchTerm)) {
                     card.style.display = 'block';
                 } else {
                     card.style.display = 'none';
@@ -772,8 +850,8 @@
             });
 
             // Hide empty sections
-            eggSections.forEach(section => {
-                const visibleCards = section.querySelectorAll('.pet-card[style="display: block;"], .pet-card:not([style*="display: none"])');
+            fruitSections.forEach(section => {
+                const visibleCards = section.querySelectorAll('.fruit-card[style="display: block;"], .fruit-card:not([style*="display: none"])');
                 if (visibleCards.length === 0 && searchTerm !== '') {
                     section.style.display = 'none';
                 } else {
@@ -792,12 +870,12 @@
                 
                 const filter = this.getAttribute('data-filter');
                 
-                eggSections.forEach(section => {
+                fruitSections.forEach(section => {
                     if (filter === 'all') {
                         section.style.display = 'block';
                     } else {
-                        const eggType = section.getAttribute('data-egg');
-                        if (eggType === filter) {
+                        const category = section.getAttribute('data-category');
+                        if (category === filter) {
                             section.style.display = 'block';
                         } else {
                             section.style.display = 'none';
@@ -808,7 +886,7 @@
         });
 
         // Add hover effects
-        petCards.forEach(card => {
+        fruitCards.forEach(card => {
             card.addEventListener('mouseenter', function() {
                 this.style.transform = 'translateY(-8px) scale(1.02)';
             });
@@ -818,15 +896,364 @@
             });
         });
 
-        // Add click animations to filter buttons
-        filterButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                this.style.transform = 'scale(0.95)';
-                setTimeout(() => {
-                    this.style.transform = 'scale(1)';
-                }, 150);
+        // Animate hunger bars on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const hungerBar = entry.target.querySelector('.hunger-fill');
+                    if (hungerBar) {
+                        const width = hungerBar.style.width;
+                        hungerBar.style.width = '0%';
+                        setTimeout(() => {
+                            hungerBar.style.width = width;
+                        }, 100);
+                    }
+                }
             });
+        }, observerOptions);
+
+        fruitCards.forEach(card => {
+            observer.observe(card);
         });
     </script>
 </body>
 </html>
+                        <span class="mutation-tag">Frozen</span>
+                    </div>
+                    <div class="special-tip">
+                        <span class="tip-icon">💡</span>
+                        <strong>Tip:</strong> Bunnies automatically eat carrots for 1.5x value bonus!
+                    </div>
+                </div>
+
+                <div class="fruit-card">
+                    <div class="fruit-name">
+                        🥬 Lettuce
+                        <span class="rarity-badge common-badge">Common</span>
+                    </div>
+                    <div class="fruit-stats">
+                        <div class="stat-item">
+                            <div class="stat-label">Sell Price</div>
+                            <div class="stat-value">180 Sheckles</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Growth Time</div>
+                            <div class="stat-value">90 seconds</div>
+                        </div>
+                    </div>
+                    <div class="feeding-info">
+                        <div class="feeding-title">🍽️ Pet Feeding Value</div>
+                        <div class="hunger-bar">
+                            <div class="hunger-fill" style="width: 12%;"></div>
+                        </div>
+                        <div>Restores 12% hunger | Great for Caterpillars</div>
+                    </div>
+                    <div class="mutations">
+                        <div class="mutations-title">🧬 Common Mutations</div>
+                        <span class="mutation-tag">Leafy</span>
+                        <span class="mutation-tag">Giant</span>
+                        <span class="mutation-tag">Pollinated</span>
+                    </div>
+                    <div class="special-tip">
+                        <span class="tip-icon">💡</span>
+                        <strong>Tip:</strong> Caterpillars make leafy plants grow 1.65x faster!
+                    </div>
+                </div>
+
+                <div class="fruit-card">
+                    <div class="fruit-name">
+                        🍅 Tomato
+                        <span class="rarity-badge common-badge">Common</span>
+                    </div>
+                    <div class="fruit-stats">
+                        <div class="stat-item">
+                            <div class="stat-label">Sell Price</div>
+                            <div class="stat-value">320 Sheckles</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Growth Time</div>
+                            <div class="stat-value">3 minutes</div>
+                        </div>
+                    </div>
+                    <div class="feeding-info">
+                        <div class="feeding-title">🍽️ Pet Feeding Value</div>
+                        <div class="hunger-bar">
+                            <div class="hunger-fill" style="width: 18%;"></div>
+                        </div>
+                        <div>Restores 18% hunger | Juicy and nutritious</div>
+                    </div>
+                    <div class="mutations">
+                        <div class="mutations-title">🧬 Common Mutations</div>
+                        <span class="mutation-tag">Giant</span>
+                        <span class="mutation-tag">Juicy</span>
+                        <span class="mutation-tag">Red</span>
+                    </div>
+                    <div class="special-tip">
+                        <span class="tip-icon">💡</span>
+                        <strong>Tip:</strong> High feeding value for a common fruit - efficient pet food!
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Uncommon Fruits -->
+        <div class="fruit-section" data-category="uncommon">
+            <div class="section-header uncommon-fruits">
+                🍓 Uncommon Fruits
+            </div>
+            <div class="fruits-grid">
+                <div class="fruit-card">
+                    <div class="fruit-name">
+                        🍓 Strawberry
+                        <span class="rarity-badge uncommon-badge">Uncommon</span>
+                    </div>
+                    <div class="fruit-stats">
+                        <div class="stat-item">
+                            <div class="stat-label">Sell Price</div>
+                            <div class="stat-value">850 Sheckles</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Growth Time</div>
+                            <div class="stat-value">8 minutes</div>
+                        </div>
+                    </div>
+                    <div class="feeding-info">
+                        <div class="feeding-title">🍽️ Pet Feeding Value</div>
+                        <div class="hunger-bar">
+                            <div class="hunger-fill" style="width: 28%;"></div>
+                        </div>
+                        <div>Restores 28% hunger | Sweet berry goodness</div>
+                    </div>
+                    <div class="mutations">
+                        <div class="mutations-title">🧬 Common Mutations</div>
+                        <span class="mutation-tag">Berry</span>
+                        <span class="mutation-tag">Sweet</span>
+                        <span class="mutation-tag">Pollinated</span>
+                        <span class="mutation-tag">Giant</span>
+                    </div>
+                    <div class="special-tip">
+                        <span class="tip-icon">💡</span>
+                        <strong>Tip:</strong> Deer pets can help berry plants replant themselves!
+                    </div>
+                </div>
+
+                <div class="fruit-card">
+                    <div class="fruit-name">
+                        🥔 Potato
+                        <span class="rarity-badge uncommon-badge">Uncommon</span>
+                    </div>
+                    <div class="fruit-stats">
+                        <div class="stat-item">
+                            <div class="stat-label">Sell Price</div>
+                            <div class="stat-value">720 Sheckles</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Growth Time</div>
+                            <div class="stat-value">6 minutes</div>
+                        </div>
+                    </div>
+                    <div class="feeding-info">
+                        <div class="feeding-title">🍽️ Pet Feeding Value</div>
+                        <div class="hunger-bar">
+                            <div class="hunger-fill" style="width: 25%;"></div>
+                        </div>
+                        <div>Restores 25% hunger | Filling and satisfying</div>
+                    </div>
+                    <div class="mutations">
+                        <div class="mutations-title">🧬 Common Mutations</div>
+                        <span class="mutation-tag">Earthy</span>
+                        <span class="mutation-tag">Giant</span>
+                        <span class="mutation-tag">Golden</span>
+                    </div>
+                    <div class="special-tip">
+                        <span class="tip-icon">💡</span>
+                        <strong>Tip:</strong> Great value for feeding - cheap to grow, fills pets well!
+                    </div>
+                </div>
+
+                <div class="fruit-card">
+                    <div class="fruit-name">
+                        🥒 Cucumber
+                        <span class="rarity-badge uncommon-badge">Uncommon</span>
+                    </div>
+                    <div class="fruit-stats">
+                        <div class="stat-item">
+                            <div class="stat-label">Sell Price</div>
+                            <div class="stat-value">650 Sheckles</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Growth Time</div>
+                            <div class="stat-value">5 minutes</div>
+                        </div>
+                    </div>
+                    <div class="feeding-info">
+                        <div class="feeding-title">🍽️ Pet Feeding Value</div>
+                        <div class="hunger-bar">
+                            <div class="hunger-fill" style="width: 22%;"></div>
+                        </div>
+                        <div>Restores 22% hunger | Hydrating and fresh</div>
+                    </div>
+                    <div class="mutations">
+                        <div class="mutations-title">🧬 Common Mutations</div>
+                        <span class="mutation-tag">Fresh</span>
+                        <span class="mutation-tag">Watery</span>
+                        <span class="mutation-tag">Green</span>
+                    </div>
+                    <div class="special-tip">
+                        <span class="tip-icon">💡</span>
+                        <strong>Tip:</strong> Fast-growing option for consistent pet feeding!
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rare Fruits -->
+        <div class="fruit-section" data-category="rare">
+            <div class="section-header rare-fruits">
+                🍇 Rare Fruits
+            </div>
+            <div class="fruits-grid">
+                <div class="fruit-card">
+                    <div class="fruit-name">
+                        🍇 Grapes
+                        <span class="rarity-badge rare-badge">Rare</span>
+                    </div>
+                    <div class="fruit-stats">
+                        <div class="stat-item">
+                            <div class="stat-label">Sell Price</div>
+                            <div class="stat-value">2,400 Sheckles</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Growth Time</div>
+                            <div class="stat-value">15 minutes</div>
+                        </div>
+                    </div>
+                    <div class="feeding-info">
+                        <div class="feeding-title">🍽️ Pet Feeding Value</div>
+                        <div class="hunger-bar">
+                            <div class="hunger-fill" style="width: 40%;"></div>
+                        </div>
+                        <div>Restores 40% hunger | Premium pet food</div>
+                    </div>
+                    <div class="mutations">
+                        <div class="mutations-title">🧬 Common Mutations</div>
+                        <span class="mutation-tag">Cluster</span>
+                        <span class="mutation-tag">Sweet</span>
+                        <span class="mutation-tag">Purple</span>
+                        <span class="mutation-tag">Vine</span>
+                    </div>
+                    <div class="special-tip">
+                        <span class="tip-icon">💡</span>
+                        <strong>Tip:</strong> Excellent hunger restoration - worth the investment!
+                    </div>
+                </div>
+
+                <div class="fruit-card">
+                    <div class="fruit-name">
+                        🍊 Orange
+                        <span class="rarity-badge rare-badge">Rare</span>
+                    </div>
+                    <div class="fruit-stats">
+                        <div class="stat-item">
+                            <div class="stat-label">Sell Price</div>
+                            <div class="stat-value">2,100 Sheckles</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Growth Time</div>
+                            <div class="stat-value">12 minutes</div>
+                        </div>
+                    </div>
+                    <div class="feeding-info">
+                        <div class="feeding-title">🍽️ Pet Feeding Value</div>
+                        <div class="hunger-bar">
+                            <div class="hunger-fill" style="width: 35%;"></div>
+                        </div>
+                        <div>Restores 35% hunger | Vitamin-rich citrus</div>
+                    </div>
+                    <div class="mutations">
+                        <div class="mutations-title">🧬 Common Mutations</div>
+                        <span class="mutation-tag">Citrus</span>
+                        <span class="mutation-tag">Juicy</span>
+                        <span class="mutation-tag">Orange</span>
+                        <span class="mutation-tag">Tangy</span>
+                    </div>
+                    <div class="special-tip">
+                        <span class="tip-icon">💡</span>
+                        <strong>Tip:</strong> Great for Orange Tabby cats - they love citrus!
+                    </div>
+                </div>
+
+                <div class="fruit-card">
+                    <div class="fruit-name">
+                        🌽 Corn
+                        <span class="rarity-badge rare-badge">Rare</span>
+                    </div>
+                    <div class="fruit-stats">
+                        <div class="stat-item">
+                            <div class="stat-label">Sell Price</div>
+                            <div class="stat-value">1,850 Sheckles</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Growth Time</div>
+                            <div class="stat-value">10 minutes</div>
+                        </div>
+                    </div>
+                    <div class="feeding-info">
+                        <div class="feeding-title">🍽️ Pet Feeding Value</div>
+                        <div class="hunger-bar">
+                            <div class="hunger-fill" style="width: 32%;"></div>
+                        </div>
+                        <div>Restores 32% hunger | Hearty grain goodness</div>
+                    </div>
+                    <div class="mutations">
+                        <div class="mutations-title">🧬 Common Mutations</div>
+                        <span class="mutation-tag">Kerneled</span>
+                        <span class="mutation-tag">Yellow</span>
+                        <span class="mutation-tag">Tall</span>
+                    </div>
+                    <div class="special-tip">
+                        <span class="tip-icon">💡</span>
+                        <strong>Tip:</strong> Chickens love corn - pairs well with poultry pets!
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Legendary Fruits -->
+        <div class="fruit-section" data-category="legendary">
+            <div class="section-header legendary-fruits">
+                🍍 Legendary Fruits
+            </div>
+            <div class="fruits-grid">
+                <div class="fruit-card">
+                    <div class="fruit-name">
+                        🍍 Pineapple
+                        <span class="rarity-badge legendary-badge">Legendary</span>
+                    </div>
+                    <div class="fruit-stats">
+                        <div class="stat-item">
+                            <div class="stat-label">Sell Price</div>
+                            <div class="stat-value">8,500 Sheckles</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-label">Growth Time</div>
+                            <div class="stat-value">45 minutes</div>
+                        </div>
+                    </div>
+                    <div class="feeding-info">
+                        <div class="feeding-title">🍽️ Pet Feeding Value</div>
+                        <div class="hunger-bar">
+                            <div class="hunger-fill" style="width: 65%;"></div>
+                        </div>
+                        <div>Restores 65% hunger | Tropical luxury</div>
+                    </div>
+                    <div class="mutations">
+                        <div class="mutations-title">🧬 Common Mutations</div>
+                        <span class="mutation-tag">Tropical</span>
+                        <span class="mutation-tag">Spiky</span>
+                        <span class="mutation-tag">Golden</span>
