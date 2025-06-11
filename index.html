@@ -669,3 +669,164 @@
                     <div class="hatch-chance">Launch Event Only</div>
                     <div class="ability">
                         <strong>Ability:</strong> Eats bamboo and auto-sells it for a small multiplier. Mostly collectible value now.
+                    </div>
+                </div>
+                <div class="pet-card">
+                    <div class="pet-name">
+                        🦔 Hedgehog
+                        <span class="tier-badge tier-b">B Tier</span>
+                    </div>
+                    <div class="hatch-chance">Night Event Only</div>
+                    <div class="ability">
+                        <strong>Ability:</strong> Increases size of all prickly fruits by 1.51x. No longer obtainable except through trading.
+                    </div>
+                </div>
+                <div class="pet-card">
+                    <div class="pet-name">
+                        🐝 Disco Bee
+                        <span class="tier-badge tier-s">S Tier</span>
+                    </div>
+                    <div class="hatch-chance">Bee Event Only</div>
+                    <div class="ability">
+                        <strong>Ability:</strong> 12% chance to turn a nearby fruit Disco every 20 minutes. Extremely valuable mutation!
+                    </div>
+                </div>
+                <div class="pet-card">
+                    <div class="pet-name">
+                        🐝 Bear Bee
+                        <span class="tier-badge tier-a">A Tier</span>
+                    </div>
+                    <div class="hatch-chance">Bee Event Only</div>
+                    <div class="ability">
+                        <strong>Ability:</strong> Every 25 minutes, mutates a crop to Honey Glazed. Great for honey-themed mutations.
+                    </div>
+                </div>
+                <div class="pet-card">
+                    <div class="pet-name">
+                        🦝 Raccoon
+                        <span class="tier-badge tier-s">S Tier</span>
+                    </div>
+                    <div class="hatch-chance">Limited Event</div>
+                    <div class="ability">
+                        <strong>Ability:</strong> Can copy your neighbor's plant and give it to you for free. Amazing for getting rare plants!
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tips Section -->
+        <div class="egg-section">
+            <div class="egg-header" style="background: linear-gradient(135deg, #2c3e50, #34495e);">
+                💡 Pro Tips & Strategies
+            </div>
+            <div style="padding: 30px;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                    <div style="background: #e8f5e8; padding: 20px; border-radius: 15px; border-left: 4px solid #27ae60;">
+                        <h3 style="color: #27ae60; margin-bottom: 10px;">🎯 Best Value Eggs</h3>
+                        <p><strong>Bug Egg:</strong> 4 out of 5 pets are S/A tier - best investment!</p>
+                        <p><strong>Legendary Egg:</strong> High chance for Silver Monkey (42.55%)</p>
+                        <p><strong>Mythical Egg:</strong> All pets are useful, but very expensive</p>
+                    </div>
+                    <div style="background: #fff3cd; padding: 20px; border-radius: 15px; border-left: 4px solid #ffc107;">
+                        <h3 style="color: #f39c12; margin-bottom: 10px;">⚡ Pet Synergies</h3>
+                        <p><strong>Mutation Combo:</strong> Dragonfly + Pig + Praying Mantis</p>
+                        <p><strong>Profit Combo:</strong> Silver Monkey + Red Giant Ant + Snail</p>
+                        <p><strong>Speed Combo:</strong> Cow + Sea Otter + Caterpillar</p>
+                    </div>
+                    <div style="background: #d1ecf1; padding: 20px; border-radius: 15px; border-left: 4px solid #17a2b8;">
+                        <h3 style="color: #17a2b8; margin-bottom: 10px;">🔄 Shop Refresh Tips</h3>
+                        <p><strong>Natural Refresh:</strong> Every 30 minutes automatically</p>
+                        <p><strong>Robux Refresh:</strong> Available for premium players</p>
+                        <p><strong>Discord Alerts:</strong> Join the stock server for notifications</p>
+                    </div>
+                    <div style="background: #f8d7da; padding: 20px; border-radius: 15px; border-left: 4px solid #dc3545;">
+                        <h3 style="color: #dc3545; margin-bottom: 10px;">⚠️ Important Notes</h3>
+                        <p><strong>Huge Chance:</strong> Any pet can be huge with 0.01% chance</p>
+                        <p><strong>Pet Aging:</strong> Feed pets regularly to increase their abilities</p>
+                        <p><strong>Inventory Limit:</strong> Maximum 60 pets, use pet slots wisely</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        const petCards = document.querySelectorAll('.pet-card');
+        const eggSections = document.querySelectorAll('.egg-section');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            
+            petCards.forEach(card => {
+                const petName = card.querySelector('.pet-name').textContent.toLowerCase();
+                const ability = card.querySelector('.ability').textContent.toLowerCase();
+                
+                if (petName.includes(searchTerm) || ability.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Hide empty sections
+            eggSections.forEach(section => {
+                const visibleCards = section.querySelectorAll('.pet-card[style="display: block;"], .pet-card:not([style*="display: none"])');
+                if (visibleCards.length === 0 && searchTerm !== '') {
+                    section.style.display = 'none';
+                } else {
+                    section.style.display = 'block';
+                }
+            });
+        });
+
+        // Filter functionality
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                const filter = this.getAttribute('data-filter');
+                
+                eggSections.forEach(section => {
+                    if (filter === 'all') {
+                        section.style.display = 'block';
+                    } else {
+                        const eggType = section.getAttribute('data-egg');
+                        if (eggType === filter) {
+                            section.style.display = 'block';
+                        } else {
+                            section.style.display = 'none';
+                        }
+                    }
+                });
+            });
+        });
+
+        // Add hover effects
+        petCards.forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Add click animations to filter buttons
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1)';
+                }, 150);
+            });
+        });
+    </script>
+</body>
+</html>
